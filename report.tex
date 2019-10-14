@@ -1,0 +1,108 @@
+\documentclass{report}[12pt]
+\usepackage[utf8]{inputenc}
+
+\title{Data and Applications Phase 1}
+\author{Jai Bardhan, Bhavyajeet Singh, Vikrant Dewangan}
+\date{October 2019}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\pagenumbering{roman}
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+This is the preface to the document
+\chapter*{Acknowledgement}
+\addcontentsline{toc}{chapter}{Acknowledgement}
+We wouldn't be able to complete this without the support of the professor.
+
+
+\chapter{Introduction}
+\pagenumbering{arabic}
+\begin{center}
+    \textit{The idea behind this document is to compile the ideas and features that we plan to implement in our final product. Here we would also write about certain details of the features : 
+    \begin{itemize}
+        \item The schema of the database
+        \item The methods required to implement the feature
+        \item Structure of the routing
+        \item Permissions of the resources
+    \end{itemize}
+    More than just that, we want to construct this SRS to provide us a good footing for our future work on this project.}
+\end{center}
+
+\section{Purpose}
+The purpose of this document is to build a crowdfunding system to provide creators an online platform to pitch their products and allow the visitors to fund their choice. (Write more)
+
+\section{Document Convention}
+The document uses the following conventions: (Write more)
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{||c c||}
+        \hline \hline 
+         \textbf{Abbreviations}&\textbf{Value}  \\
+         \hline
+         DB&Database \\
+         DDB&Distributed Database \\
+         ER&Entity Relationship \\
+        \hline \hline
+    \end{tabular}
+\end{table}
+
+\section{Intended Audience and Suggested Reading}
+The project is a prototype (attempting at a production level) for a crowdfunding platform and it is restricted under the college premises. This has been implemented under the guidance of the professors. This project is useful to budding entrepreneurs to showcase their new ideas. (Write more).
+
+\section{Project Scope}
+The system is based on a relational database with its accounts management, projects managements, and funding functions. We will have a database supporting content of many different kinds, allowing the creators to put in as many links and photos as they like. Allowing them to customize their page through easy tools. We would like to also manage the bank accounts of the creators and the Payment methods of the Investors.\\ 
+We hope to provide a customizable, yet powerful platform for various creators to pitch their products and reach the target audience. (Write More)
+
+\section{References}
+\begin{itemize}
+    \item https://github.com/Jai2500
+    \item https://google.com
+\end{itemize}
+
+\chapter{Overall Description}
+\section{Product Perspective}
+A distributed database stores the following details; (Write More)
+\begin{itemize}
+    \item \textbf{Creator Details: }\\
+    It contains the account details such as the account\_id, projects, bank details, and other relevant details.
+    \item \textbf{Investor Details: }\\
+    It contains the account details such as the account\_id, payment methods, supported projects, and other relevant details.
+    \item \textbf{Project Details: }\\
+    It contains the project details such as project\_id, creator details, project customizable elements, supporters, supporter details, and other relevant details. 
+\end{itemize}
+\section{Project Features}
+Make an ER thing? (Work Needed)
+
+\section{User Class and Characteristics}
+There would be 2 class of people:  (Work Needed)
+\subsection{Creators}
+Creators should be able to upload their projects and relevant data and also be able to customize their launch pages. They should be easily able to interact with the customers through and keep track of the supporters of the project. The database should allow the implementation of features. The creator should have access to the following features: 
+\begin{itemize}
+    \item Launch a new project
+    \item Track the status of the funding
+    \item Know the details of the supporters
+\end{itemize}
+\subsection{Supporters}
+Supporters should be able to view their supported products and also be able to support new products. The supporter should have access to the following features:
+\begin{itemize}
+    \item Supporters should be able to view their supported projects.
+    \item Supporters should be able to view their account details. 
+    \item Supporters should be able to discover new products based on their interest. 
+\end{itemize}
+
+\section{Operating Environment}
+No clue currently.(Write more)
+
+\section{Design and Implementation Constraints}
+No clue (Work needed)
+
+\chapter{System Features}
+\section{Description and Priority}
+
+
+\end{document}
