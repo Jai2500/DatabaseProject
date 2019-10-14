@@ -1,14 +1,14 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.9.6)  14 OCT 2019 15:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.5.4)  14 OCT 2019 15:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.tex"
-(c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.tex
+**d:/core/home/D/DatabaseProject/report.tex
+(d:/core/home/D/DatabaseProject/report.tex
 LaTeX2e <2018-12-01>
-(c:/texlive/2019/texmf-dist/tex/latex/base/report.cls
+(d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2018/09/03 v1.4i Standard LaTeX document class
-(c:/texlive/2019/texmf-dist/tex/latex/base/size10.clo
+(d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 )
 \c@part=\count80
@@ -23,11 +23,11 @@ File: size10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-) (c:/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
+) (d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2018/08/11 v1.3c Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
-) (c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.aux)
+) (d:/core/home/D/DatabaseProject/report.aux)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -50,7 +50,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 10.
  [1
 
-{c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.toc
+{d:/texlive(2)/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (d:/core/home/D/DatabaseProject/report.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -68,7 +68,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ]
 Chapter 1.
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 33.
-(c:/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
+(d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
@@ -86,17 +86,17 @@ Chapter 2.
 Chapter 3.
 [5
 
-] (c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.aux) ) 
+] (d:/core/home/D/DatabaseProject/report.aux) ) 
 Here is how much of TeX's memory you used:
- 298 strings out of 492609
- 4066 string characters out of 6132819
- 64487 words of memory out of 5000000
- 4283 multiletter control sequences out of 15000+600000
+ 298 strings out of 492618
+ 3877 string characters out of 6128069
+ 64342 words of memory out of 5000000
+ 4280 multiletter control sequences out of 15000+600000
  9453 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 23i,8n,20p,495b,216s stack positions out of 5000i,500n,10000p,200000b,80000s
-<c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on "c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.pdf" (9 pages, 102904 bytes).
+ 23i,8n,20p,468b,216s stack positions out of 5000i,500n,10000p,200000b,80000s
+<d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on d:/core/home/D/DatabaseProject/report.pdf (9 pages, 102904 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  43 compressed objects within 1 object stream

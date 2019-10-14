@@ -1,50 +1,50 @@
-PWD c:/Users/jaiba/Desktop/Database Project/DatabaseProject
-INPUT c:/texlive/2019/texmf.cnf
-INPUT c:/texlive/2019/texmf-dist/web2c/texmf.cnf
-INPUT c:/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.tex
-OUTPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.log
-INPUT c:/texlive/2019/texmf-dist/tex/latex/base/report.cls
-INPUT c:/texlive/2019/texmf-dist/tex/latex/base/report.cls
-INPUT c:/texlive/2019/texmf-dist/tex/latex/base/size10.clo
-INPUT c:/texlive/2019/texmf-dist/tex/latex/base/size10.clo
-INPUT c:/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
-INPUT c:/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
-INPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.aux
-INPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.aux
-OUTPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.aux
-INPUT c:/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
-OUTPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.pdf
-INPUT c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.toc
-INPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.toc
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
-OUTPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.toc
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
-INPUT c:/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
-INPUT c:/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT c:/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT c:/Users/jaiba/Desktop/Database Project/DatabaseProject/report.aux
-INPUT c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-INPUT c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-INPUT c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
-INPUT c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
-INPUT c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb
-INPUT c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
-INPUT c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
+PWD d:/core/home/D/DatabaseProject
+INPUT d:/texlive(2)/texlive/2019/texmf.cnf
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/web2c/texmf.cnf
+INPUT d:/texlive(2)/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT d:/core/home/D/DatabaseProject/report.tex
+OUTPUT d:/core/home/D/DatabaseProject/report.log
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/report.cls
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/report.cls
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/size10.clo
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/size10.clo
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
+INPUT d:/core/home/D/DatabaseProject/report.aux
+INPUT d:/core/home/D/DatabaseProject/report.aux
+OUTPUT d:/core/home/D/DatabaseProject/report.aux
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
+OUTPUT d:/core/home/D/DatabaseProject/report.pdf
+INPUT d:/texlive(2)/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT d:/core/home/D/DatabaseProject/report.toc
+INPUT d:/core/home/D/DatabaseProject/report.toc
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+OUTPUT d:/core/home/D/DatabaseProject/report.toc
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT d:/core/home/D/DatabaseProject/report.aux
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT d:/texlive(2)/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
