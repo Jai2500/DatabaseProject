@@ -187,7 +187,56 @@ def insert_industry():
     return
 
 
-insert_industry()
-cur.execute('select * from INDUSTRY')
+def update_empsal():
+    '''
+    Function to update the salary of an employee 
+    '''
+    emp_id = input("Enter Id of the employee whose salary is to updated: " )
+    while re.findall(r"[0-9]+", emp_id) == [] or re.findall(r"[0-9]+", emp_id)[0] != emp_id:
+        print("ID not integer")
+        emp_id = input("Enter Id: ")
+    salary = input("Enter new Salary: ")
+    while  re.findall(r"[0-9]+", salary) == [] or re.findall(r"[0-9]+", salary)[0] != salary:
+        print("Salary not integer")
+        salary = input("Enter Salary: ")
+
+
+    try:
+        query = "update EMPLOYEE set EmployeeSalary=%d where EmployeeId=%d" % (int(salary),int(emp_id));
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>", e)
+
+    return
+
+def update_networth():
+    '''
+    Function to update the networth of an employee 
+    '''
+    emp_id = input("Enter Id of the startup whose networth is to updated: " )
+    while re.findall(r"[0-9]+", emp_id) == [] or re.findall(r"[0-9]+", emp_id)[0] != emp_id:
+        print("ID not integer")
+        emp_id = input("Enter Id: ")
+    networth = input("Enter new networth: ")
+    while  re.findall(r"[0-9]+", networth) == [] or re.findall(r"[0-9]+", networth)[0] != networth:
+        print("networth not integer")
+        networth = input("Enter networth: ")
+
+
+    try:
+        query = "UPDATE STARTUP set Networth=%d where StartupID=%d" % (int(networth),int(emp_id));
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>", e)
+
+    return
+
+
+update_networth()
+cur.execute('select * from STARTUP')
 
 print(cur.fetchall())
