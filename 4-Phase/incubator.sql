@@ -25,7 +25,9 @@ DROP TABLE IF EXISTS `BASED_IN`;
 CREATE TABLE `BASED_IN` (
   `StartupID` int(11) NOT NULL,
   `LocationID` int(11) NOT NULL,
-  PRIMARY KEY (`StartupID`,`LocationID`)
+  PRIMARY KEY (`StartupID`,`LocationID`),
+ /*added */ FOREIGN KEY (`StartupID`) REFERENCES STARTUP(`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE,
+ /*added */ FOREIGN KEY (`LocationID`) REFERENCES LOCATION(`Pincode`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,7 +53,8 @@ CREATE TABLE `DIRECTOR` (
   `StartupID` int(11) NOT NULL,
   `Sex` varchar(20) NOT NULL,
   `Experience` int(11) NOT NULL,
-  PRIMARY KEY (`Name`,`StartupID`)
+  PRIMARY KEY (`Name`,`StartupID`),
+ /*added */ FOREIGN KEY (`StartupID`) REFERENCES STARTUP(`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -78,7 +81,8 @@ CREATE TABLE `DIRECTOR_EDUCATION` (
   `Degree` varchar(50) NOT NULL,
   `Branch` varchar(50) NOT NULL,
   `Year` int(11) NOT NULL,
-  PRIMARY KEY (`Name`,`StartupID`,`Degree`,`Branch`,`Year`)
+  PRIMARY KEY (`Name`,`StartupID`,`Degree`,`Branch`,`Year`),
+ /*added */ FOREIGN KEY (`StartupID`) REFERENCES STARTUP(`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -159,7 +163,8 @@ CREATE TABLE `INVESTOR` (
   `FirstName` varchar(50) NOT NULL,
   `LastName` varchar(50) NOT NULL,
   `LocationID` int(11) NOT NULL,
-  PRIMARY KEY (`InvestorID`)
+  PRIMARY KEY (`InvestorID`),
+ /*added */ FOREIGN KEY (`LocationID`) REFERENCES LOCATION(`Pincode`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -185,7 +190,8 @@ CREATE TABLE `INVESTOR_EDUCATION` (
   `Degree` varchar(50) NOT NULL,
   `Branch` varchar(50) NOT NULL,
   `Year` int(11) NOT NULL,
-  PRIMARY KEY (`InvestorID`,`Degree`,`Branch`,`Year`)
+  PRIMARY KEY (`InvestorID`,`Degree`,`Branch`,`Year`),
+ /*added*/ FOREIGN KEY (`InvestorID`) REFERENCES INVESTOR(`InvestorID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -212,7 +218,11 @@ CREATE TABLE `INVESTS` (
   `StartupID` int(11) NOT NULL,
   `ResourceID` int(11) NOT NULL,
   `StartDate` date NOT NULL,
-  PRIMARY KEY (`IndustryID`,`InvestorID`,`StartupID`,`ResourceID`)
+  PRIMARY KEY (`IndustryID`,`InvestorID`,`StartupID`,`ResourceID`),
+ /*added */ FOREIGN KEY (`StartupID`) REFERENCES STARTUP(`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE,
+ /*added */ FOREIGN KEY (`IndustryID`) REFERENCES INDUSTRY(`IndustryID`) ON UPDATE CASCADE ON DELETE CASCADE,
+ /*added */ FOREIGN KEY (`InvestorID`) REFERENCES INVESTOR(`InvestorID`) ON UPDATE CASCADE ON DELETE CASCADE,
+ /*added */ FOREIGN KEY (`ResourceID`) REFERENCES RESOURCE(`ResourceID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -264,7 +274,8 @@ CREATE TABLE `PROJECT` (
   `TimeFrame` int(11) NOT NULL,
   `StartDate` date NOT NULL,
   `NoofEmployees` int(11) NOT NULL,
-  PRIMARY KEY (`ProjectName`,`StartupID`)
+  PRIMARY KEY (`ProjectName`,`StartupID`),
+ /*added */ FOREIGN KEY (`StartupID`) REFERENCES STARTUP(`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -315,8 +326,9 @@ CREATE TABLE `STARTUP` (
   `StartupName` varchar(50) NOT NULL,
   `NoofEmployees` int(11) NOT NULL,
   `Networth` int(11) NOT NULL,
-  `LocationID` int(11) NOT NULL,
-  PRIMARY KEY (`StartupID`)
+  `ResourceID` int(11) NOT NULL,
+  PRIMARY KEY (`StartupID`),
+ /*added */ FOREIGN KEY (`ResourceID`) REFERENCES RESOURCE(`ResourceID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -326,7 +338,7 @@ CREATE TABLE `STARTUP` (
 
 LOCK TABLES `STARTUP` WRITE;
 /*!40000 ALTER TABLE `STARTUP` DISABLE KEYS */;
-INSERT INTO `STARTUP` VALUES (1,'Dream View',100,1000000,500032),(2,'Ober Cab Services',200,200000,250001);
+INSERT INTO `STARTUP` VALUES (1,'Dream View',100,1000000,  101),(2,'Ober Cab Services',200,200000,102);
 /*!40000 ALTER TABLE `STARTUP` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,7 +352,8 @@ DROP TABLE IF EXISTS `STARTUP_FOUNDERS`;
 CREATE TABLE `STARTUP_FOUNDERS` (
   `StartupID` int(11) NOT NULL,
   `Founder` varchar(50) NOT NULL,
-  PRIMARY KEY (`StartupID`,`Founder`)
+  PRIMARY KEY (`StartupID`,`Founder`),
+ /*added */ FOREIGN KEY (`StartupID`) REFERENCES STARTUP(`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
