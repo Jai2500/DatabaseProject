@@ -262,7 +262,7 @@ def allshow_startup_founders():
     Function to show directors education
     '''
     try:
-        query = "SELECT * FROM STARTUP_FOUNDERSs"
+        query = "SELECT * FROM STARTUP_FOUNDERS"
         cur.execute(query)
         render_table(cur.fetchall())
     except Exception as e:
@@ -663,3 +663,4 @@ while True:
     #cur.execute('select * from INVESTOR')
 
 render_table(cur.fetchall())
+
