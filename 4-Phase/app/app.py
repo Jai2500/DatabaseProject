@@ -1004,6 +1004,7 @@ def max_startup_per_location():
     '''
     Function to find the location with the maximum number of startups and the number of startups
     '''
+    print("The Location with the maximum number of startups")
     query = 'select c as "Number of Startups", LocationID  from (select count(*) as c,LocationID from BASED_IN group by LocationID) as x where x.c = (select max(c)  from (select count(*) as c,LocationID from BASED_IN group by LocationID ) as y) group by LocationID;'
     try:
         cur.execute(query)
@@ -1020,6 +1021,7 @@ def max_startup_per_industry():
     '''
     Function to find the location with the maximum number of startups and the number of startups
     '''
+    print("The Industry with the maximum number of startups")
     query = 'select c as "Number of Startups", x.IndustryID, IndustryName from (select count(StartupID) as c, IndustryID from INVESTS group by IndustryID) as x, INDUSTRY i where x.c = (select max(c) from (select count(StartupID) as c, IndustryID i from INVESTS group by IndustryID) as x) and i.IndustryID = x.IndustryID group by IndustryID ;'
     try:
         cur.execute(query)
