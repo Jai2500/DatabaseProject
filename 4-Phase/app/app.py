@@ -96,9 +96,9 @@ def render_table(data):
     return
 
 
-##############################################################################################################
-############################    DISPLAY FUNCTIONS    #########################################################
-##############################################################################################################
+##################################################################################
+############################    DISPLAY FUNCTIONS    #############################
+##################################################################################
 def allshow_employee():
     '''
     Function to show employee
@@ -314,17 +314,53 @@ def insert_investor():
         print("LID not integer")
         lid = input("Enter Location Id: ")
 
+
+
+
+
     print(inv_id, dob, sex, fname, lname, lid)
 
     query = "insert into INVESTOR(InvestorId,DOB,Sex,FirstName,LastName,LocationId) values(%d,'%s','%s','%s','%s',%d)" % (
         int(inv_id), dob, sex, fname, lname, int(lid))
 
+    vart=0
     try:
         cur.execute(query)
     except Exception as e:
         con.commit()
         con.rollback()
+        vart=1
         print("ERROR >>", e)
+
+    if (vart==0):
+        tr = 0
+        while tr==0:
+            print("Enter Invertor's Education\n")
+            deg=input("Enter Degree: ")
+            branch = input ("Enter Branch: ")
+            invalid=1
+            while (invalid):
+                year = input ("Enter Year of Completion: ")
+                while re.findall(r"[0-9]+", year) == [] or re.findall(r"[0-9]+", year)[0] != year:
+                    print("year not integer")
+                    year = input ("Enter Year of Completion: ")
+                by=int(dob[:4]) 
+                if int(year)-by<=5:
+                    print ("Too young for a degree")
+                else :
+                    invalid=0
+            query = "insert into INVESTOR_EDUCATION(InvestorID,Degree,Branch,Year) values(%d,'%s','%s','%d')" % (
+                int(inv_id), deg,branch ,int(year))
+            try:
+                cur.execute(query)
+            except Exception as e:
+                con.commit()
+                con.rollback()
+                print("ERROR >>", e)
+            k=input("are there more Educational Qualifications (Y/N)? ")
+            if k[0]=='n' or k[0]=='N':
+                tr=1
+
     print(ANSI_TEXT_RESET)
 
     return
@@ -572,9 +608,9 @@ def delete_director():
     return
 
 
-##############################################################################################################
-############################    REPORT FUNCTION       ########################################################
-##############################################################################################################
+##################################################################################
+############################    REPORT FUNCTION       ############################
+##################################################################################
 
 def max_startup_per_location():
     '''
@@ -612,9 +648,9 @@ list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, alls
                       allshow_startup_founders], [insert_investor, insert_startup, insert_employee, insert_industry], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry]]
 
 
-##############################################################################################################
-############################    MAIN FUNCTION       ##########################################################
-##############################################################################################################
+##################################################################################
+############################    MAIN FUNCTION       ##############################
+##################################################################################
 def execute_command(a):
     ''' 
     Function that redirect query to corresponding function 
