@@ -758,9 +758,28 @@ def insert_invests():
         con.rollback()
         print("Error >> ", e)
 
+    return
+
     
+def insert_founders(st_id = None)):
+    if st_id == None:
+        st_id = input("Enter Startup Id: ")
+        while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", st_id)[0] != st_id:
+            print("ID not integer")
+            st_id = input("Enter Startup Id: ")
 
+    founder = str(input("Enter the founders name: "))
 
+    query = "insert into STARTUP_FOUNDERS(StartupID, Founder) values (%d, '%s')" % (int(st_id), founder)
+
+    try:
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("Error >> ",e)
+
+    return        
 
 ###############################################################################
 ############################    UPDATE FUNCTIONS    ###########################
