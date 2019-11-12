@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 import getpass
 import re
 import subprocess as sp
@@ -12,6 +12,39 @@ print(cur.fetchall())
 '''
 
 # Functions to check the field_lists
+
+
+def check_ind_type(t):
+    ind_types = {
+        'primary': 'Primary',
+        'secondary': 'Secondary',
+        'tertiary': 'Tertiary'
+    }
+
+    if t.lower() in ind_types.keys():
+        return ind_types[t.lower()]
+    else:
+        return None
+
+
+def check_degree(d):
+    degrees = {
+        "btech": "BTech",
+        "mtech": "MTech",
+        "phd": "PhD",
+        "bsc": "BSc",
+        "ms": "MS",
+        "mphil": "MPhil",
+        "msc": "MSc",
+        "bba": "BBA",
+        "mba": "MBA",
+        "mbbs": "MBBS",
+        "bpharma": "BPharma"
+    }
+    if d.lower() in degrees.keys():
+        return degrees[d.lower()]
+    else:
+        return None
 
 
 def check_sex(c):
@@ -315,55 +348,74 @@ def insert_investor():
         print("LID not integer")
         lid = input("Enter Location Id: ")
 
-
-
-
-
     print(inv_id, dob, sex, fname, lname, lid)
 
     query = "insert into INVESTOR(InvestorId,DOB,Sex,FirstName,LastName,LocationId) values(%d,'%s','%s','%s','%s',%d)" % (
         int(inv_id), dob, sex, fname, lname, int(lid))
 
-    vart=0
     try:
         cur.execute(query)
-    except Exception as e:
+        investor_education(inv_id=inv_id, dob=dob)
         con.commit()
+    except Exception as e:
         con.rollback()
-        vart=1
         print("ERROR >>", e)
-
-    if (vart==0):
-        tr = 0
-        while tr==0:
-            print("Enter Invertor's Education\n")
-            deg=input("Enter Degree: ")
-            branch = input ("Enter Branch: ")
-            invalid=1
-            while (invalid):
-                year = input ("Enter Year of Completion: ")
-                while re.findall(r"[0-9]+", year) == [] or re.findall(r"[0-9]+", year)[0] != year:
-                    print("year not integer")
-                    year = input ("Enter Year of Completion: ")
-                by=int(dob[:4]) 
-                if int(year)-by<=5:
-                    print ("Too young for a degree")
-                else :
-                    invalid=0
-            query = "insert into INVESTOR_EDUCATION(InvestorID,Degree,Branch,Year) values(%d,'%s','%s','%d')" % (
-                int(inv_id), deg,branch ,int(year))
-            try:
-                cur.execute(query)
-            except Exception as e:
-                con.commit()
-                con.rollback()
-                print("ERROR >>", e)
-            k=input("are there more Educational Qualifications (Y/N)? ")
-            if k[0]=='n' or k[0]=='N':
-                tr=1
 
     print(ANSI_TEXT_RESET)
 
+    return
+
+
+def investor_education(inv_id=None, dob=None):
+    tr = 0
+    count = 0
+    while tr == 0:
+        print("Enter Invertor's Education")
+        if inv_id == None:
+            inv_id = input("Enter Id: ")
+            while re.findall(r"[0-9]+", inv_id) == [] or re.findall(r"[0-9]+", inv_id)[0] != inv_id:
+                print("ID not integer")
+                inv_id = input("Enter Id: ")
+
+        if dob == None:
+            dob = str(input("Enter Date YYYY-MM-DD:"))
+            while parse_date(dob) is None:
+                print("WRONG DATE")
+                dob = str(input("Enter Date YYYY-MM-DD: "))
+
+        deg = input("Enter Degree: ")
+        while(check_degree(deg) is None):
+            deg = input("Enter Degree: ")
+        deg = check_degree(deg)
+        branch = input("Enter Branch: ")
+        invalid = 1
+        while (invalid):
+            year = input("Enter Year of Completion: ")
+            while re.findall(r"[0-9]+", year) == [] or re.findall(r"[0-9]+", year)[0] != year:
+                print("year not integer")
+                year = input("Enter Year of Completion: ")
+            by = int(dob[:4])
+            if int(year)-by <= 5:
+                print("Too young for a degree")
+            else:
+                invalid = 0
+        query = "insert into INVESTOR_EDUCATION(InvestorID,Degree,Branch,Year) values(%d,'%s','%s','%d')" % (
+            int(inv_id), deg, branch, int(year))
+        try:
+            cur.execute(query)
+            con.commit()
+            count += 1
+        except Exception as e:
+            con.rollback()
+            print("ERROR >>", e)
+
+        k = input("are there more Educational Qualifications (Y/N)? ")
+        if k[0] == 'n' or k[0] == 'N':
+            if count == 0:
+                raise Exception(
+                    "No educational qualification entered for the investor")
+            else:
+                tr = 1
     return
 
 
@@ -407,6 +459,93 @@ def insert_startup():
         print("ERROR >>", e)
     print(ANSI_TEXT_RESET)
 
+    return
+
+
+def insert_director():
+    '''
+    Function to insert directors into the table
+    '''
+    tr = 0
+    while tr == 0:
+        print("Enter Director's Details")
+        startup_id = input("Enter Id: ")
+        while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != startup_id:
+            print("ID not integer")
+            startup_id = input("Enter Id: ")
+
+        name = str(input("Enter Name: "))
+
+        sex = str(input("Enter Sex (Male/Female): "))
+        while check_sex(sex) == False:
+            print("INVALID SEX")
+            sex = str(input("Enter Sex: "))
+
+        experience = input("Enter Experience (Years): ")
+        while re.findall(r"[0-9]+", experience) == [] or re.findall(r"[0-9]+", experience)[0] != experience:
+            print("Experience not integer")
+            experience = input("Enter Id: ")
+
+        query = "insert into DIRECTOR(Name, StartupID, Sex, Experience) values ('%s', %d, '%s', '%d')" % (
+            name, startup_id, sex, experience)
+
+        try:
+            cur.execute(query)
+            con.commit()
+            director_education(startup_id=startup_id, name=name)
+        except Exception as e:
+            con.rollback()
+            print("Error >> ", e)
+
+        inp = input("Are there more directors in the startup? (Y/N)")
+        if inp[0] in ['N', 'n']:
+            tr = 1
+
+    return
+
+
+def director_education(startup_id=None, name=None):
+    tr = 0
+    count = 0
+    while tr == 0:
+        print("Enter Director's Education")
+
+        if startup_id == None:
+            startup_id = input("Enter Id: ")
+            while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != startup_id:
+                print("ID not integer")
+                startup_id = input("Enter Id: ")
+
+        if name == None:
+            name = str(input("Enter Name: "))
+
+        deg = input("Enter Degree: ")
+        while(check_degree(deg) is None):
+            deg = input("Enter Degree: ")
+        deg = check_degree(deg)
+        branch = input("Enter Branch: ")
+        year = input("Enter Year of Completion: ")
+        while re.findall(r"[0-9]+", year) == [] or re.findall(r"[0-9]+", year)[0] != year:
+            print("year not integer")
+            year = input("Enter Year of Completion: ")
+
+        query = "insert into DIRECTOR_EDUCATION(Name,StartupID, Degree, Branch,Year) values('%s', %d,'%s','%s','%d')" % (
+            name, int(startup_id), deg, branch, int(year))
+        try:
+            cur.execute(query)
+            con.commit()
+            count += 1
+        except Exception as e:
+            con.rollback()
+            print("ERROR >>", e)
+
+        k = input("are there more Educational Qualifications (Y/N)? ")
+        if k[0] == 'n' or k[0] == 'N':
+            if count == 0:
+                raise Exception(
+                    "No educational qualification entered for the director")
+            else:
+                tr = 1
     return
 
 
@@ -467,12 +606,15 @@ def insert_industry():
 
     name = str(input("Enter Name: "))
 
-    type = str(input("Enter Industry Type: "))
+    ind_type = str(input("Enter Industry Type: "))
+    while(check_ind_type(ind_type) == None):
+        ind_type = input("Enter resource type: ")
+    ind_type = check_ind_type(ind_type)
 
    # print(inv_id, dob, sex, fname, lname, lid)
 
     query = "insert into INDUSTRY(IndustryID,IndustryName,IndustryType) values(%d,'%s','%s')" % (
-        int(ind_id), name, type)
+        int(ind_id), name, ind_type)
 
     try:
         cur.execute(query)
@@ -483,6 +625,143 @@ def insert_industry():
     print(ANSI_TEXT_RESET)
 
     return
+
+
+def insert_resource():
+    '''
+    Function to insert data to the resources table
+    '''
+
+    res_id = input("Enter Id: ")
+    while re.findall(r"[0-9]+", res_id) == [] or re.findall(r"[0-9]+", res_id)[0] != res_id:
+        print("ID not integer")
+        res_id = input("Enter Id: ")
+
+    value = input("Enter Value: ")
+    while re.findall(r"[0-9]+", value) == [] or re.findall(r"[0-9]+", value)[0] != value:
+        print("Value not integer")
+        value = input("Enter Value: ")
+
+    res_type = str(input("Enter resource type: "))
+
+    query = "insert into RESOURCE(ResourceID, Value, ResourceType) values(%d, %d, '%s' )" % (
+        int(res_id), int(value), res_type)
+
+    try:
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+    return
+
+def insert_location():
+    '''
+    Function to insert data into location table
+    '''
+
+    pincode = input("Enter Pincode: ")
+    while re.findall(r"[0-9]+", pincode) == [] or re.findall(r"[0-9]+", pincode)[0] != pincode:
+        print("Pincode not integer")
+        pincode = input("Enter Pincode: ")
+
+    city = str(input("Enter the City Name: "))
+
+    country = str(input("Enter the Country Name: "))
+
+    query = "insert into LOCATION(Pincode, City, Country) values(%d, '%s', '%s')" % (int(pincode), city, country)
+
+    try:
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+
+def insert_project():
+    '''
+    Function to insert data into the project table
+    '''
+
+    name = str(input("Enter Project Name: "))
+
+    st_id = input("Enter Id: ")
+    while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", st_id)[0] != st_id:
+        print("ID not integer")
+        st_id = input("Enter Id: ")
+
+    timeframe = input("Enter Timeframe (Years): ")
+    while re.findall(r"[0-9]+", timeframe) == [] or re.findall(r"[0-9]+", timeframe)[0] != timeframe:
+        print("Timeframe not integer")
+        timeframe = input("Enter Timeframe: ")
+
+    st_date = str(input("Enter Date YYYY-MM-DD:"))
+    while parse_date(st_date) is None:
+        print("WRONG DATE")
+        st_date = str(input("Enter Date YYYY-MM-DD: "))
+    st_date = parse_date(st_date)
+
+    noE = input("Enter Number of Employees: ")
+    while re.findall(r"[0-9]+", noE) == [] or re.findall(r"[0-9]+", noE)[0] != noE:
+        print("Number of Employees not integer")
+        noE = input("Enter Number of Employees: ")
+
+    query = "insert into PROJECT(ProjectName, StartupID, TimeFrame, StartDate, NoofEmployees) values ('%s', %d, %d, '%s', %d)" % (name, int(st_id), int(timeframe), st_date,int(noE))
+
+    try:
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+
+
+def insert_invests():
+    '''
+    Function to insert the invests relation
+    '''
+
+    st_id = input("Enter Startup Id: ")
+    while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", st_id)[0] != st_id:
+        print("ID not integer")
+        st_id = input("Enter Startup Id: ")
+
+    inv_id = input("Enter Investor Id: ")
+    while re.findall(r"[0-9]+", inv_id) == [] or re.findall(r"[0-9]+", inv_id)[0] != inv_id:
+        print("ID not integer")
+        inv_id = input("Enter Investor Id: ")
+
+    ind_id = input("Enter Industry Id: ")
+    while re.findall(r"[0-9]+", ind_id) == [] or re.findall(r"[0-9]+", ind_id)[0] != ind_id:
+        print("ID not integer")
+        ind_id = input("Enter Industry Id: ")
+
+    res_id = input("Enter Resource Id: ")
+    while re.findall(r"[0-9]+", res_id) == [] or re.findall(r"[0-9]+", res_id)[0] != res_id:
+        print("ID not integer")
+        res_id = input("Enter Resource Id: ")
+
+    st_date = str(input("Enter Date YYYY-MM-DD:"))
+    while parse_date(st_date) is None:
+        print("WRONG DATE")
+        st_date = str(input("Enter Date YYYY-MM-DD: "))
+    st_date = parse_date(st_date)
+
+    query = "insert into INVESTS(InvestorID, IndustryID, StartupID, ResourceID, StartDate) values (%d, %d, %d, %d, '%s')" % (int(inv_id), int(ind_id), int(st_id), int(res_id), st_date)
+
+    try:
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+    
+
+
 
 ###############################################################################
 ############################    UPDATE FUNCTIONS    ###########################
@@ -686,6 +965,34 @@ def max_startup_per_industry():
     return
 
 
+def age_of_investor():
+    '''
+    Function to calculate the age of the investor
+    '''
+    inv_id = input("Enter the InvestorID of the director to delete: ")
+    while re.findall(r"[0-9]+", inv_id) == [] or re.findall(r"[0-9]+", inv_id)[0] != inv_id:
+        print("ID not integer")
+        inv_id = input("Enter Id: ")
+
+    query = "select DOB from INVESTOR where InvestorID = %d" % (int(inv_id))
+
+    try:
+        cur.execute(query)
+        dob = cur.fetchone()[0]
+
+        today = date.today()
+        years = today.year - dob.year
+        if today.month < dob.month or (today.month == dob.month and today.day < dob.day):
+            years -= 1
+
+        print("The age of the investor is: ", years)
+        return years
+
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+
 list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, allshow_location, allshow_investor, allshow_startup, allshow_project, allshow_director, allshow_director_education, allshow_investor_education, allshow_invests, allshow_based_in,
                       allshow_startup_founders], [insert_investor, insert_startup, insert_employee, insert_industry], [update_employee_salary, update_startup_networth,update_investor], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry]]
 
@@ -766,4 +1073,3 @@ while True:
     #cur.execute('select * from INVESTOR')
 
 render_table(cur.fetchall())
-
