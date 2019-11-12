@@ -40,6 +40,10 @@ command_list.append("Show")
 command_list.append("Insert")
 command_list.append("Update")
 command_list.append("Delete")
+command_list.append("Generate Report")
+command_list.append("")
+command_list.append("")
+command_list.append("Quit")
 show_list = []
 show_list.append("Employee")
 show_list.append("Resource")
@@ -66,6 +70,9 @@ delete_list = []
 delete_list.append("Investor")
 delete_list.append("Employee")
 delete_list.append("Director")
+report_list=[]
+report_list.append("Startup per Location")
+report_list.append("Startup per Industry")
 
 
 ##############################################################################################################
@@ -528,7 +535,11 @@ def max_startup_per_industry():
 
 
 
-list_of_functions = [[allshow_employee,allshow_resource,allshow_industry,allshow_location,allshow_investor,allshow_startup,allshow_project,allshow_director,allshow_director_education,allshow_investor_education,allshow_invests,allshow_based_in,allshow_startup_founders],[insert_investor,insert_startup,insert_employee,insert_industry],[update_employee_salary,update_startup_networth],[delete_investor,delete_employee,delete_director]]
+
+
+list_of_functions = [[allshow_employee,allshow_resource,allshow_industry,allshow_location,allshow_investor,allshow_startup,allshow_project,allshow_director,allshow_director_education,allshow_investor_education,allshow_invests,allshow_based_in,allshow_startup_founders],[insert_investor,insert_startup,insert_employee,insert_industry],[update_employee_salary,update_startup_networth],[delete_investor,delete_employee,delete_director]
+                    ,[max_startup_per_location,max_startup_per_industry]
+                    ]
 
 
 ##############################################################################################################
@@ -565,6 +576,13 @@ def execute_command(a):
             print(i,delete_list[i])
         b = int(input("Enter an option to select: ")) 
         gp = list_of_functions[a][b]()
+    elif (a==4):
+        print(ANSI_TEXT_CYAN)
+        for i in range(len(report_list)):
+            print(i,report_list[i])
+        b = int(input("Enter an option to select: ")) 
+        gp = list_of_functions[a][b]()
+        
     print(ANSI_TEXT_RESET)
     return 
 
