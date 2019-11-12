@@ -4,6 +4,7 @@ import getpass
 import subprocess as sp
 import re
 from datetime import datetime
+from tabulate import tabulate
 
 '''
 cur.execute('select * from STARTUP')
@@ -75,6 +76,22 @@ report_list.append("Startup per Location")
 report_list.append("Startup per Industry")
 
 
+# Render Tables
+
+def render_table(data):
+    data_dict = {}
+    for i in range(len(data)):
+        for j in data[i]:
+            if j not in data_dict.keys():
+                data_dict[j] = [data[i][j]]
+            else:
+                data_dict[j].append(data[i][j])
+
+    print(tabulate(data_dict, headers="keys", tablefmt="grid"))
+    
+    return
+
+
 ##############################################################################################################
 ############################    DISPLAY FUNCTIONS    #########################################################
 ##############################################################################################################
@@ -86,7 +103,8 @@ def allshow_employee():
     try:
         query = "SELECT * FROM EMPLOYEE" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
+        # print(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -98,7 +116,7 @@ def allshow_resource():
     try:
         query = "SELECT * FROM RESOURCE" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -110,7 +128,7 @@ def allshow_industry():
     try:
         query = "SELECT * FROM INDUSTRY" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -122,7 +140,7 @@ def allshow_location():
     try:
         query = "SELECT * FROM LOCATION" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -134,7 +152,7 @@ def allshow_investor():
     try:
         query = "SELECT * FROM INVESTOR" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -146,7 +164,7 @@ def allshow_startup():
     try:
         query = "SELECT * FROM STARTUP" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -158,7 +176,7 @@ def allshow_project():
     try:
         query = "SELECT * FROM PROJECT" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -170,7 +188,7 @@ def allshow_director():
     try:
         query = "SELECT * FROM DIRECTOR" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -182,7 +200,7 @@ def allshow_director_education():
     try:
         query = "SELECT * FROM DIRECTOR_EDUCATION" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -195,7 +213,7 @@ def allshow_investor_education():
     try:
         query = "SELECT * FROM INVESTOR_EDUCATION" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -208,7 +226,7 @@ def allshow_invests():
     try:
         query = "SELECT * FROM INVESTS" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -221,7 +239,7 @@ def allshow_based_in():
     try:
         query = "SELECT * FROM BASED_IN" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -233,7 +251,7 @@ def allshow_startup_founders():
     try:
         query = "SELECT * FROM STARTUP_FOUNDERSs" 
         cur.execute(query)
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -512,7 +530,7 @@ def max_startup_per_location():
     query = 'select c as "Number of Startups", LocationID  from (select count(*) as c,LocationID from BASED_IN group by LocationID) as x where x.c = (select max(c)  from (select count(*) as c,LocationID from BASED_IN group by LocationID ) as y) group by LocationID;'
     try:
         cur.execute(query)   
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("Error >> ", e)
@@ -526,7 +544,7 @@ def max_startup_per_industry():
     query = 'select c as "Number of Startups", x.IndustryID, IndustryName from (select count(StartupID) as c, IndustryID from INVESTS group by IndustryID) as x, INDUSTRY i where x.c = (select max(c) from (select count(StartupID) as c, IndustryID i from INVESTS group by IndustryID) as x) and i.IndustryID = x.IndustryID group by IndustryID ;'
     try:
         cur.execute(query)   
-        print(cur.fetchall())
+        render_table(cur.fetchall())
     except Exception as e:
         con.rollback()
         print("Error >> ", e)
@@ -614,4 +632,4 @@ while True:
     #update_networth()
     #cur.execute('select * from INVESTOR')
 
-print(cur.fetchall())
+render_table(cur.fetchall())
