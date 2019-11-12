@@ -31,15 +31,15 @@ if parse_date('1993-02-23') is None:
 else:
     print(parse_date('1993-02-21'))
 
-ANSI_TEXT_RED = "\033[1;31;40m"
-ANSI_TEXT_BLACK = "\033[1;31;40m"
-ANSI_TEXT_GREEN = "\033[1;32;40m"
-ANSI_TEXT_YELLOW = "\033[1;33;40m"
-ANSI_TEXT_BLUE = "\033[1;34;40m"
-ANSI_TEXT_PURPLE = "\033[1;35;40m"
-ANSI_TEXT_CYAN = "\033[1;36;40m"
-ANSI_TEXT_WHITE = "\033[1;37;40m"
-ANSI_TEXT_RESET = "\033[1;0;40m"
+ANSI_TEXT_RED = "\033[1;31m"
+ANSI_TEXT_BLACK = "\033[1;31m"
+ANSI_TEXT_GREEN = "\033[1;32m"
+ANSI_TEXT_YELLOW = "\033[1;33m"
+ANSI_TEXT_BLUE = "\033[1;34m"
+ANSI_TEXT_PURPLE = "\033[1;35m"
+ANSI_TEXT_CYAN = "\033[1;36m"
+ANSI_TEXT_WHITE = "\033[1;37m"
+ANSI_TEXT_RESET = "\033[1;0m"
 command_list = []
 command_list.append("Show")
 command_list.append("Insert")
@@ -113,6 +113,8 @@ def allshow_employee():
         con.rollback()
         print("ERROR >>", e)
 
+    print(ANSI_TEXT_RESET)
+
 
 def allshow_resource():
     '''
@@ -125,6 +127,7 @@ def allshow_resource():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_industry():
@@ -138,6 +141,7 @@ def allshow_industry():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_location():
@@ -151,6 +155,7 @@ def allshow_location():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_investor():
@@ -164,6 +169,7 @@ def allshow_investor():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_startup():
@@ -177,6 +183,7 @@ def allshow_startup():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_project():
@@ -190,6 +197,7 @@ def allshow_project():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_director():
@@ -203,6 +211,7 @@ def allshow_director():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_director_education():
@@ -216,6 +225,7 @@ def allshow_director_education():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_investor_education():
@@ -229,6 +239,7 @@ def allshow_investor_education():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_invests():
@@ -242,6 +253,7 @@ def allshow_invests():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_based_in():
@@ -255,6 +267,7 @@ def allshow_based_in():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 def allshow_startup_founders():
@@ -268,6 +281,7 @@ def allshow_startup_founders():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
 
 ##############################################################################
@@ -311,6 +325,7 @@ def insert_investor():
         con.commit()
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
     return
 
@@ -353,6 +368,7 @@ def insert_startup():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
     return
 
@@ -397,6 +413,7 @@ def insert_employee():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
     return
 
@@ -426,6 +443,7 @@ def insert_industry():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
     return
 
@@ -457,6 +475,7 @@ def update_employee_salary():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
 
     return
 
@@ -483,6 +502,7 @@ def update_startup_networth():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
     return
 
 ###############################################################################
@@ -506,6 +526,7 @@ def delete_investor():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
     return
 
 
@@ -525,6 +546,7 @@ def delete_employee():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
     return
 
 
@@ -546,6 +568,7 @@ def delete_director():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
     return
 
 
@@ -564,6 +587,7 @@ def max_startup_per_location():
     except Exception as e:
         con.rollback()
         print("Error >> ", e)
+    print(ANSI_TEXT_RESET)
 
     return
 
@@ -579,6 +603,7 @@ def max_startup_per_industry():
     except Exception as e:
         con.rollback()
         print("Error >> ", e)
+    print(ANSI_TEXT_RESET)
 
     return
 
