@@ -71,6 +71,7 @@ insert_list.append("Industry")
 update_list = []
 update_list.append("Salary of employee")
 update_list.append("Networth of employee")
+update_list.append("investor details")
 delete_list = []
 delete_list.append("Investor")
 delete_list.append("Employee")
@@ -488,11 +489,52 @@ def insert_industry():
 ###############################################################################
 
 
+def update_investor():
+    '''
+    Function to update investor details 
+    '''
+    inv_id = input("Enter the id of the investor whose details are to be updated: ")
+    while re.findall(r"[0-9]+", inv_id) == [] or re.findall(r"[0-9]+", inv_id)[0] != inv_id:
+        print("ID not integer")
+        inv_id = input("Enter Id: ")
+    field = input("Enter the attribute you want to update: ")
+    l=["DOB","FirstName","LastName","InvestorID","LocationID","Sex"]
+    while field not in l:
+        print ("not a valid field")
+        print ("field must be in ",l )
+        field = input("Enter attribute: ")
+
+    val=input ("enter the value to be updated: ")
+    err=0
+    if field=="LocationID" or field == "InvestorID":
+        try :
+            val=int(val)
+        except :
+            err=1
+            print ("ID not integer, update aborted")
+        if err==0:
+            query ="update INVESTOR set %s=%d where InvestorID=%d" % (field,val,int(inv_id))
+    else :
+        query ="update INVESTOR set %s='%s' where InvestorID=%d" % (field,val,int(inv_id))
+        print (query)
+
+    try:
+        cur.execute(query)
+        con.commit()
+        print("Updated " + str(cur.rowcount) + " row(s) successfully")
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>", e)
+    print(ANSI_TEXT_RESET)
+
+
+
+
 def update_employee_salary():
     '''
     Function to update the salary of an employee 
     '''
-    emp_id = input("Enter Id of the employee whose salary is to updated: ")
+    emp_id = input("Enter Id of the employee whose salary is to be  updated: ")
     while re.findall(r"[0-9]+", emp_id) == [] or re.findall(r"[0-9]+", emp_id)[0] != emp_id:
         print("ID not integer")
         emp_id = input("Enter Id: ")
@@ -645,7 +687,7 @@ def max_startup_per_industry():
 
 
 list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, allshow_location, allshow_investor, allshow_startup, allshow_project, allshow_director, allshow_director_education, allshow_investor_education, allshow_invests, allshow_based_in,
-                      allshow_startup_founders], [insert_investor, insert_startup, insert_employee, insert_industry], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry]]
+                      allshow_startup_founders], [insert_investor, insert_startup, insert_employee, insert_industry], [update_employee_salary, update_startup_networth,update_investor], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry]]
 
 
 ##################################################################################
