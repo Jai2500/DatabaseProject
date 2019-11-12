@@ -424,6 +424,7 @@ def update_employee_salary():
     while re.findall(r"[0-9]+", emp_id) == [] or re.findall(r"[0-9]+", emp_id)[0] != emp_id:
         print("ID not integer")
         emp_id = input("Enter Id: ")
+
     salary = input("Enter new Salary: ")
     while  re.findall(r"[0-9]+", salary) == [] or re.findall(r"[0-9]+", salary)[0] != salary:
         print("Salary not integer")
@@ -434,6 +435,7 @@ def update_employee_salary():
         query = "update EMPLOYEE set EmployeeSalary=%d where EmployeeId=%d" % (int(salary),int(emp_id))
         cur.execute(query)
         con.commit()
+        print("Updated " + str(cur.rowcount) + " row(s) successfully")
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
@@ -457,6 +459,7 @@ def update_startup_networth():
         query = "UPDATE STARTUP set Networth=%d where StartupID=%d" % (int(networth),int(st_id))
         cur.execute(query)
         con.commit()
+        print("Updated " + str(cur.rowcount) + " row(s) successfully")
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
@@ -475,9 +478,10 @@ def delete_investor():
         print("ID not integer")
         investor_id = input("Enter Id: ")
     try:
-        query = "DELETE FROM INVESTOR WHERE ID=%d" %(int(investor_id))
+        query = "DELETE FROM INVESTOR WHERE InvestorID=%d" %(int(investor_id))
         cur.execute(query)
         con.commit()
+        print("Deleted " + str(cur.rowcount) + " row(s) successfully")
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -492,9 +496,10 @@ def delete_employee():
         print("ID not integer")
         employee_id = input("Enter Id: ")
     try:
-        query = "DELETE FROM EMPLOYEE WHERE ID=%d" %(int(employee_id))
+        query = "DELETE FROM EMPLOYEE WHERE EmployeeID=%d" %(int(employee_id))
         cur.execute(query)
         con.commit()
+        print("Deleted " + str(cur.rowcount) + " row(s) successfully")
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
@@ -510,9 +515,10 @@ def delete_director():
         startup_id = input("Enter Id: ")
     name = input("Enter name of director to delete: ")
     try:
-        query = "DELETE FROM DIRECTOR WHERE ID=%d AND NAME=%s" %(int(startup_id),str(name))
+        query = "DELETE FROM DIRECTOR WHERE StartupID=%d AND Name='%s'" %(int(startup_id),str(name))
         cur.execute(query)
         con.commit()
+        print("Deleted " + str(cur.rowcount) + " row(s) successfully")
     except Exception as e:
         con.rollback()
         print("ERROR >>",e)
