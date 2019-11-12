@@ -679,6 +679,89 @@ def insert_location():
         print("Error >> ", e)
 
 
+def insert_project():
+    '''
+    Function to insert data into the project table
+    '''
+
+    name = str(input("Enter Project Name: "))
+
+    st_id = input("Enter Id: ")
+    while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", st_id)[0] != st_id:
+        print("ID not integer")
+        st_id = input("Enter Id: ")
+
+    timeframe = input("Enter Timeframe (Years): ")
+    while re.findall(r"[0-9]+", timeframe) == [] or re.findall(r"[0-9]+", timeframe)[0] != timeframe:
+        print("Timeframe not integer")
+        timeframe = input("Enter Timeframe: ")
+
+    st_date = str(input("Enter Date YYYY-MM-DD:"))
+    while parse_date(st_date) is None:
+        print("WRONG DATE")
+        st_date = str(input("Enter Date YYYY-MM-DD: "))
+    st_date = parse_date(st_date)
+
+    noE = input("Enter Number of Employees: ")
+    while re.findall(r"[0-9]+", noE) == [] or re.findall(r"[0-9]+", noE)[0] != noE:
+        print("Number of Employees not integer")
+        noE = input("Enter Number of Employees: ")
+
+    query = "insert into PROJECT(ProjectName, StartupID, TimeFrame, StartDate, NoofEmployees) values ('%s', %d, %d, '%s', %d)" % (name, int(st_id), int(timeframe), st_date,int(noE))
+
+    try:
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+
+
+def insert_invests():
+    '''
+    Function to insert the invests relation
+    '''
+
+    st_id = input("Enter Startup Id: ")
+    while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", st_id)[0] != st_id:
+        print("ID not integer")
+        st_id = input("Enter Startup Id: ")
+
+    inv_id = input("Enter Investor Id: ")
+    while re.findall(r"[0-9]+", inv_id) == [] or re.findall(r"[0-9]+", inv_id)[0] != inv_id:
+        print("ID not integer")
+        inv_id = input("Enter Investor Id: ")
+
+    ind_id = input("Enter Industry Id: ")
+    while re.findall(r"[0-9]+", ind_id) == [] or re.findall(r"[0-9]+", ind_id)[0] != ind_id:
+        print("ID not integer")
+        ind_id = input("Enter Industry Id: ")
+
+    res_id = input("Enter Resource Id: ")
+    while re.findall(r"[0-9]+", res_id) == [] or re.findall(r"[0-9]+", res_id)[0] != res_id:
+        print("ID not integer")
+        res_id = input("Enter Resource Id: ")
+
+    st_date = str(input("Enter Date YYYY-MM-DD:"))
+    while parse_date(st_date) is None:
+        print("WRONG DATE")
+        st_date = str(input("Enter Date YYYY-MM-DD: "))
+    st_date = parse_date(st_date)
+
+    query = "insert into INVESTS(InvestorID, IndustryID, StartupID, ResourceID, StartDate) values (%d, %d, %d, %d, '%s')" % (int(inv_id), int(ind_id), int(st_id), int(res_id), st_date)
+
+    try:
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+    
+
+
+
 ###############################################################################
 ############################    UPDATE FUNCTIONS    ###########################
 ###############################################################################
