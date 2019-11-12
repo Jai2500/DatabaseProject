@@ -87,7 +87,7 @@ CREATE TABLE `DIRECTOR_EDUCATION` (
   `Branch` varchar(50) NOT NULL,
   `Year` int(11) NOT NULL,
   PRIMARY KEY (`Name`,`StartupID`,`Degree`,`Branch`,`Year`),
- /*added */ FOREIGN KEY (`StartupID`) REFERENCES STARTUP(`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE
+ /*added */ FOREIGN KEY (`Name`,`StartupID`) REFERENCES DIRECTOR(`Name`,`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -167,9 +167,9 @@ CREATE TABLE `INVESTOR` (
   `Sex` varchar(50) NOT NULL,
   `FirstName` varchar(50) NOT NULL,
   `LastName` varchar(50) NOT NULL,
-  `LocationID` int(11) NOT NULL,
+  `LocationID` int(11) ,
   PRIMARY KEY (`InvestorID`),
- /*added */ FOREIGN KEY (`LocationID`) REFERENCES LOCATION(`Pincode`) ON UPDATE CASCADE ON DELETE CASCADE
+ /*added */ FOREIGN KEY (`LocationID`) REFERENCES LOCATION(`Pincode`) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -179,7 +179,7 @@ CREATE TABLE `INVESTOR` (
 
 LOCK TABLES `INVESTOR` WRITE;
 /*!40000 ALTER TABLE `INVESTOR` DISABLE KEYS */;
-INSERT INTO `INVESTOR` VALUES (1,'1990-07-10','Male','Shyam','Gopal',250001),(2,'1991-05-02','Female','Rama','Dewam',400094),(3,'1992-03-29','Male','Anubhav','Trump',710000);
+INSERT INTO `INVESTOR` VALUES (1,'1990-07-10','Male','Shyam','Gopal',250001),(2,'1991-05-02','Female','Rama','Dewam',400094),(3,'1992-03-29','Male','Anubhav','Trump',710094);
 /*!40000 ALTER TABLE `INVESTOR` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,7 +218,7 @@ DROP TABLE IF EXISTS `INVESTS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `INVESTS` (
-  `IndustryID` int(11) NOT NULL,
+  `IndustryID` int(11) NOT NULL ,
   `InvestorID` int(11) NOT NULL,
   `StartupID` int(11) NOT NULL,
   `ResourceID` int(11) NOT NULL,
@@ -252,7 +252,7 @@ CREATE TABLE `LOCATION` (
   `Pincode` int(11) NOT NULL,
   `City` varchar(50) NOT NULL,
   `Country` varchar(50) NOT NULL,
-  PRIMARY KEY (`Pincode`,`City`,`Country`)
+  PRIMARY KEY (`Pincode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -262,7 +262,7 @@ CREATE TABLE `LOCATION` (
 
 LOCK TABLES `LOCATION` WRITE;
 /*!40000 ALTER TABLE `LOCATION` DISABLE KEYS */;
-INSERT INTO `LOCATION` VALUES (250001,'Meerut','India'),(400094,'Mumbai','India'),(500032,'Hyderabad','India'),(500032,'Hyderabad','Pakistan');
+INSERT INTO `LOCATION` VALUES (250001,'Meerut','India'),(400094,'Mumbai','India'),(500032,'Hyderabad','India'),(710094,'Hyderabad','Pakistan');
 /*!40000 ALTER TABLE `LOCATION` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,9 +331,9 @@ CREATE TABLE `STARTUP` (
   `StartupName` varchar(50) NOT NULL,
   `NoofEmployees` int(11) NOT NULL,
   `Networth` int(11) NOT NULL,
-  `ResourceID` int(11) NOT NULL,
+  `ResourceID` int(11) ,
   PRIMARY KEY (`StartupID`),
- /*added */ FOREIGN KEY (`ResourceID`) REFERENCES RESOURCE(`ResourceID`) ON UPDATE CASCADE ON DELETE CASCADE
+ /*added */ FOREIGN KEY (`ResourceID`) REFERENCES RESOURCE(`ResourceID`) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
