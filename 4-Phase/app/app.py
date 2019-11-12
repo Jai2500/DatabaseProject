@@ -96,6 +96,7 @@ show_list.append("Investor_Education")
 show_list.append("Invests")
 show_list.append("Based_in")
 show_list.append("Startup Founders")
+show_list.append("Go Back to the main menu")
 insert_list = []
 insert_list.append("Investor")
 insert_list.append("Investor_Education")
@@ -110,19 +111,22 @@ insert_list.append("Location")
 insert_list.append("Project")
 insert_list.append("Invests")
 insert_list.append("Startup Founders")
+insert_list.append("Go Back to the main menu")
 update_list = []
 update_list.append("Salary of employee")
 update_list.append("Networth of employee")
 update_list.append("investor details")
+update_list.append("Go Back to the main menu")
 delete_list = []
 delete_list.append("Investor")
 delete_list.append("Employee")
 delete_list.append("Director")
+delete_list.append("Go Back to the main menu")
 report_list = []
 report_list.append("Startup per Location")
 report_list.append("Startup per Industry")
 report_list.append("Age of investor")
-
+report_list.append("Go Back to the main menu")
 
 # Render Tables
 
@@ -147,7 +151,6 @@ def allshow_employee():
     '''
     Function to show employee
     '''
-    print("ME cvalle\n")
     try:
         query = "SELECT * FROM EMPLOYEE"
         cur.execute(query)
@@ -564,15 +567,15 @@ def insert_based_in(startup_id=None):
     count = 0
     while tr == 0:
         if startup_id == None:
-            startup_id = input("Enter Location Id: ")
+            startup_id = input("Enter Startup Id: ")
             while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != startup_id:
                 print("ID not integer")
-                startup_id = input("Enter Location Id: ")
+                startup_id = input("Enter Startup Id: ")
 
-        location_id = input("Enter Id: ")
+        location_id = input("Enter Location Id: ")
         while re.findall(r"[0-9]+", location_id) == [] or re.findall(r"[0-9]+", location_id)[0] != location_id:
             print("ID not integer")
-            location_id = input("Enter Id: ")
+            location_id = input("Enter Location Id: ")
 
         query = "insert into BASED_IN(StartupID, LocationID) values(%d, %d)" % (
              int(startup_id),int(location_id))
@@ -1057,6 +1060,8 @@ def age_of_investor():
         print("Error >> ", e)
 
 
+
+
 list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, allshow_location, allshow_investor, allshow_startup, allshow_project, allshow_director, allshow_director_education, allshow_investor_education, allshow_invests, allshow_based_in,
                       allshow_startup_founders], [insert_investor, investor_education,insert_startup, insert_director,director_education,insert_based_in,insert_employee, insert_industry,insert_resource,insert_location,insert_project,insert_invests,insert_founders], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry,age_of_investor]]
 
@@ -1070,36 +1075,56 @@ def execute_command(a):
     '''
     if a == 0:
         print(ANSI_TEXT_YELLOW)
+        tmp = sp.call('clear', shell=True)
         for i in range(len(show_list)):
             print(i, show_list[i])
         b = int(input("Enter an option to select: "))
+        if b is len(show_list)-1:
+            print("Ok Going Back")
+            return
         gp = list_of_functions[a][b]()
 
     elif a == 1:
         print(ANSI_TEXT_BLUE)
+        tmp = sp.call('clear', shell=True)
         for i in range(len(insert_list)):
             print(i, insert_list[i])
         b = int(input("Enter an option to select: "))
+        if b is len(insert_list)-1:
+            print("Ok Going Back")
+            return
         gp = list_of_functions[a][b]()
 
     elif a == 2:
         print(ANSI_TEXT_GREEN)
+        tmp = sp.call('clear', shell=True)
         for i in range(len(update_list)):
             print(i, update_list[i])
         b = int(input("Enter an option to select: "))
+        if b is len(update_list)-1:
+            print("Ok Going Back")
+            return
         gp = list_of_functions[a][b]()
 
     elif a == 3:
         print(ANSI_TEXT_RED)
+        tmp = sp.call('clear', shell=True)
         for i in range(len(delete_list)):
             print(i, delete_list[i])
         b = int(input("Enter an option to select: "))
+        if b is len(delete_list)-1:
+            print("Ok Going Back")
+            return
         gp = list_of_functions[a][b]()
     elif a == 4:
         print(ANSI_TEXT_CYAN)
+        tmp = sp.call('clear', shell=True)
         for i in range(len(report_list)):
             print(i, report_list[i])
         b = int(input("Enter an option to select: "))
+        if b is len(report_list)-1:
+            print("Ok Going Back")
+            return
         gp = list_of_functions[a][b]()
 
     print(ANSI_TEXT_RESET)
@@ -1121,6 +1146,8 @@ while (logged == 0):
 
 cur = con.cursor()
 while True:
+    tmp = sp.call('clear', shell=True)
+    print(ANSI_TEXT_RESET)
     print("Select an option")
     for h in range(len(command_list)):
         print(h, command_list[h])
@@ -1133,6 +1160,7 @@ while True:
             execute_command(g)
     except Exception as e:
         print("ERROR>>>", e)
+    input_anna=input("Press a key to continue")
     # update_networth()
     #cur.execute('select * from INVESTOR')
 
