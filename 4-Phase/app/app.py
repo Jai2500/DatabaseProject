@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 import getpass
 import re
 import subprocess as sp
@@ -12,6 +12,25 @@ print(cur.fetchall())
 '''
 
 # Functions to check the field_lists
+
+def check_degree(d):
+    degrees = {
+        "btech" : "BTech",
+        "mtech" : "MTech",
+        "phd" : "PhD",
+        "bsc" : "BSc",
+        "ms" : "MS",
+        "mphil" : "MPhil",
+        "msc" : "MSc", 
+        "bba" : "BBA",
+        "mba" : "MBA", 
+        "mbbs" : "MBBS",
+        "bpharma" : "BPharma" 
+    }
+    if d.lower() in degrees.keys():
+        return degrees[d.lower()]
+    else:
+        return None
 
 
 def check_sex(c):
@@ -606,6 +625,34 @@ def max_startup_per_industry():
     print(ANSI_TEXT_RESET)
 
     return
+
+def age_of_investor():
+    '''
+    Function to calculate the age of the investor
+    '''
+    inv_id = input("Enter the InvestorID of the director to delete: ")
+    while re.findall(r"[0-9]+", inv_id) == [] or re.findall(r"[0-9]+", inv_id)[0] != inv_id:
+        print("ID not integer")
+        inv_id = input("Enter Id: ")
+
+    query = "select DOB from INVESTOR where InvestorID = %d" % (int(inv_id))
+
+    try:
+        cur.execute(query)
+        dob = cur.fetchone()[0]
+
+        today = date.today()
+        years = today.year - dob.year
+        if today.month < dob.month or (today.month == dob.month and today.day < dob.day):
+            years -= 1
+
+        print("The age of the investor is: ", years)
+        return years 
+
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+        
 
 
 list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, allshow_location, allshow_investor, allshow_startup, allshow_project, allshow_director, allshow_director_education, allshow_investor_education, allshow_invests, allshow_based_in,
