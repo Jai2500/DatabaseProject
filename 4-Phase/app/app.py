@@ -5,11 +5,6 @@ import subprocess as sp
 import re
 from datetime import datetime
 
-username = str(input("Enter user: "))
-password = str(getpass.getpass())
-con = pymysql.connect('localhost', username, password, 'incubator', cursorclass=pymysql.cursors.DictCursor)
-
-cur = con.cursor()
 '''
 cur.execute('select * from STARTUP')
 print(cur.fetchall())
@@ -237,9 +232,9 @@ def allshow_startup_founders():
         print("ERROR >>",e)
 
 
-##############################################################################################################
-############################    INSERT FUNCTIONS    ##########################################################
-##############################################################################################################
+##############################################################################
+############################    INSERT FUNCTIONS    ##########################
+##############################################################################
 def insert_investor():
     '''
         Function to insert investors into the table
@@ -393,9 +388,9 @@ def insert_industry():
 
     return
 
-##############################################################################################################
-############################    UPDATE FUNCTIONS    ##########################################################
-##############################################################################################################
+###############################################################################
+############################    UPDATE FUNCTIONS    ###########################
+###############################################################################
 def update_employee_salary():
     '''
     Function to update the salary of an employee 
@@ -442,42 +437,9 @@ def update_startup_networth():
         print("ERROR >>", e)
     return
 
-
-# Report 
-
-def max_startup_per_location():
-    '''
-    Function to find the location with the maximum number of startups and the number of startups
-    '''
-    query = 'select c as "Number of Startups", LocationID  from (select count(*) as c,LocationID from BASED_IN group by LocationID) as x where x.c = (select max(c)  from (select count(*) as c,LocationID from BASED_IN group by LocationID ) as y) group by LocationID;'
-    try:
-        cur.execute(query)   
-        print(cur.fetchall())
-    except Exception as e:
-        con.rollback()
-        print("Error >> ", e)
-
-    return
-
-def max_startup_per_industry():
-    '''
-    Function to find the location with the maximum number of startups and the number of startups
-    '''
-    query = 'select c as "Number of Startups", x.IndustryID, IndustryName from (select count(StartupID) as c, IndustryID from INVESTS group by IndustryID) as x, INDUSTRY i where x.c = (select max(c) from (select count(StartupID) as c, IndustryID i from INVESTS group by IndustryID) as x) and i.IndustryID = x.IndustryID group by IndustryID ;'
-    try:
-        cur.execute(query)   
-        print(cur.fetchall())
-    except Exception as e:
-        con.rollback()
-        print("Error >> ", e)
-
-    return
-
-
-
-##############################################################################################################
-############################    DELETE FUNCTIONS    ##########################################################
-##############################################################################################################
+###############################################################################
+############################    DELETE FUNCTIONS    ###########################
+###############################################################################
 
 def delete_investor():
     '''
@@ -572,13 +534,31 @@ def execute_command(a):
     return 
 
 tmp = sp.call('clear',shell=True)
+logged=0
+while (logged==0):
+    try :
+        logged =1
+        username = str(input("Enter user: "))
+        password = str(getpass.getpass())
+        con = pymysql.connect('localhost', username, password, 'incubator', cursorclass=pymysql.cursors.DictCursor)
+    except Exception as e:
+        logged=0
+        print ("ERROR>>>",e)
+
+cur = con.cursor()
 while True:
     print("Select an option")
     for h in range(len(command_list)):
         print(h,command_list[h])
-    g=int(input("Enter the key: "))
-    #allshow_employee()
-    execute_command(g)
+    try :
+        g=int(input("Enter the key: "))
+        #allshow_employee()
+        if (g==7):
+            exit()
+        else: 
+            execute_command(g)
+    except Exception as e:
+        print("ERROR>>>",e)
     #update_networth()
     #cur.execute('select * from INVESTOR')
 
