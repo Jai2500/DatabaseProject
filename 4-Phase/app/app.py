@@ -109,6 +109,7 @@ insert_list.append("Resource")
 insert_list.append("Location")
 insert_list.append("Project")
 insert_list.append("Invests")
+insert_list.append("Startup Founders")
 update_list = []
 update_list.append("Salary of employee")
 update_list.append("Networth of employee")
@@ -806,7 +807,7 @@ def insert_invests():
     return
 
     
-def insert_founders(st_id = None)):
+def insert_founders(st_id = None):
     if st_id == None:
         st_id = input("Enter Startup Id: ")
         while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", st_id)[0] != st_id:
@@ -1057,7 +1058,7 @@ def age_of_investor():
 
 
 list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, allshow_location, allshow_investor, allshow_startup, allshow_project, allshow_director, allshow_director_education, allshow_investor_education, allshow_invests, allshow_based_in,
-                      allshow_startup_founders], [insert_investor, investor_education,insert_startup, insert_director,director_education,insert_based_in,insert_employee, insert_industry,insert_resource,insert_location,insert_project,insert_invests], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry,age_of_investor]]
+                      allshow_startup_founders], [insert_investor, investor_education,insert_startup, insert_director,director_education,insert_based_in,insert_employee, insert_industry,insert_resource,insert_location,insert_project,insert_invests,insert_founders], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry,age_of_investor]]
 
 
 ##################################################################################
