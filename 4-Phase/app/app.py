@@ -13,19 +13,20 @@ print(cur.fetchall())
 
 # Functions to check the field_lists
 
+
 def check_degree(d):
     degrees = {
-        "btech" : "BTech",
-        "mtech" : "MTech",
-        "phd" : "PhD",
-        "bsc" : "BSc",
-        "ms" : "MS",
-        "mphil" : "MPhil",
-        "msc" : "MSc", 
-        "bba" : "BBA",
-        "mba" : "MBA", 
-        "mbbs" : "MBBS",
-        "bpharma" : "BPharma" 
+        "btech": "BTech",
+        "mtech": "MTech",
+        "phd": "PhD",
+        "bsc": "BSc",
+        "ms": "MS",
+        "mphil": "MPhil",
+        "msc": "MSc",
+        "bba": "BBA",
+        "mba": "MBA",
+        "mbbs": "MBBS",
+        "bpharma": "BPharma"
     }
     if d.lower() in degrees.keys():
         return degrees[d.lower()]
@@ -333,55 +334,61 @@ def insert_investor():
         print("LID not integer")
         lid = input("Enter Location Id: ")
 
-
-
-
-
     print(inv_id, dob, sex, fname, lname, lid)
 
     query = "insert into INVESTOR(InvestorId,DOB,Sex,FirstName,LastName,LocationId) values(%d,'%s','%s','%s','%s',%d)" % (
         int(inv_id), dob, sex, fname, lname, int(lid))
 
-    vart=0
     try:
         cur.execute(query)
-    except Exception as e:
+        investor_education(inv_id=inv_id, dob=dob)
         con.commit()
+    except Exception as e:
         con.rollback()
-        vart=1
         print("ERROR >>", e)
-
-    if (vart==0):
-        tr = 0
-        while tr==0:
-            print("Enter Invertor's Education\n")
-            deg=input("Enter Degree: ")
-            branch = input ("Enter Branch: ")
-            invalid=1
-            while (invalid):
-                year = input ("Enter Year of Completion: ")
-                while re.findall(r"[0-9]+", year) == [] or re.findall(r"[0-9]+", year)[0] != year:
-                    print("year not integer")
-                    year = input ("Enter Year of Completion: ")
-                by=int(dob[:4]) 
-                if int(year)-by<=5:
-                    print ("Too young for a degree")
-                else :
-                    invalid=0
-            query = "insert into INVESTOR_EDUCATION(InvestorID,Degree,Branch,Year) values(%d,'%s','%s','%d')" % (
-                int(inv_id), deg,branch ,int(year))
-            try:
-                cur.execute(query)
-            except Exception as e:
-                con.commit()
-                con.rollback()
-                print("ERROR >>", e)
-            k=input("are there more Educational Qualifications (Y/N)? ")
-            if k[0]=='n' or k[0]=='N':
-                tr=1
 
     print(ANSI_TEXT_RESET)
 
+    return
+
+
+def investor_education(inv_id=None, dob = None):
+    tr = 0
+    count = 0
+    while tr == 0:
+        print("Enter Invertor's Education")
+        deg = input("Enter Degree: ")
+        while(check_degree(deg) is None):
+            deg = input("Enter Degree: ")
+        deg = check_degree(deg)
+        branch = input("Enter Branch: ")
+        invalid = 1
+        while (invalid):
+            year = input("Enter Year of Completion: ")
+            while re.findall(r"[0-9]+", year) == [] or re.findall(r"[0-9]+", year)[0] != year:
+                print("year not integer")
+                year = input("Enter Year of Completion: ")
+            by = int(dob[:4])
+            if int(year)-by <= 5:
+                print("Too young for a degree")
+            else:
+                invalid = 0
+        query = "insert into INVESTOR_EDUCATION(InvestorID,Degree,Branch,Year) values(%d,'%s','%s','%d')" % (
+            int(inv_id), deg, branch, int(year))
+        try:
+            cur.execute(query)
+            con.commit()
+            count +=1
+        except Exception as e:
+            con.rollback()
+            print("ERROR >>", e)
+
+        k = input("are there more Educational Qualifications (Y/N)? ")
+        if k[0] == 'n' or k[0] == 'N':
+            if count == 0:
+                raise Exception("No educational qualification entered for the investor")
+            else:
+                tr = 1
     return
 
 
@@ -662,6 +669,7 @@ def max_startup_per_industry():
 
     return
 
+
 def age_of_investor():
     '''
     Function to calculate the age of the investor
@@ -683,12 +691,11 @@ def age_of_investor():
             years -= 1
 
         print("The age of the investor is: ", years)
-        return years 
+        return years
 
     except Exception as e:
         con.rollback()
         print("Error >> ", e)
-        
 
 
 list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, allshow_location, allshow_investor, allshow_startup, allshow_project, allshow_director, allshow_director_education, allshow_investor_education, allshow_invests, allshow_based_in,
@@ -771,4 +778,3 @@ while True:
     #cur.execute('select * from INVESTOR')
 
 render_table(cur.fetchall())
-
