@@ -1,18 +1,19 @@
 import pymysql
 import pymysql.cursors
 import getpass
+import subprocess as sp
 import re
 from datetime import datetime
 
-username = str(input())
+username = str(input("Enter user: "))
 password = str(getpass.getpass())
 con = pymysql.connect('localhost', username, password, 'incubator', cursorclass=pymysql.cursors.DictCursor)
 
 cur = con.cursor()
-
+'''
 cur.execute('select * from STARTUP')
 print(cur.fetchall())
-
+'''
 
 # Functions to check the field_lists
 def check_sex(c):
@@ -30,8 +31,214 @@ if parse_date('1993-02-23') is None:
 else:
     print(parse_date('1993-02-21'))
 
+ANSI_TEXT_RED = "\033[1;31;40m"
+ANSI_TEXT_BLACK = "\033[1;31;40m"
+ANSI_TEXT_GREEN = "\033[1;32;40m"
+ANSI_TEXT_YELLOW = "\033[1;33;40m"
+ANSI_TEXT_BLUE = "\033[1;34;40m"
+ANSI_TEXT_PURPLE = "\033[1;35;40m"
+ANSI_TEXT_CYAN = "\033[1;36;40m"
+ANSI_TEXT_WHITE = "\033[1;37;40m"
+ANSI_TEXT_RESET = "\033[1;0;40m"
+command_list = []
+command_list.append("Show")
+command_list.append("Insert")
+command_list.append("Update")
+command_list.append("Delete")
+show_list = []
+show_list.append("Employee")
+show_list.append("Resource")
+show_list.append("Industry")
+show_list.append("Location")
+show_list.append("Investor")
+show_list.append("Startup")
+show_list.append("Project")
+show_list.append("Director")
+show_list.append("Director_Education")
+show_list.append("Investor_Education")
+show_list.append("Invests")
+show_list.append("Based_in")
+show_list.append("Startup Founders")
+insert_list = []
+insert_list.append("Investor")
+insert_list.append("Startup")
+insert_list.append("Employee")
+insert_list.append("Industry")
+update_list = []
+update_list.append("Salary of employee")
+update_list.append("Networth of employee")
+delete_list = []
+delete_list.append("Investor")
+delete_list.append("Employee")
+delete_list.append("Director")
 
-# Insert functions
+
+##############################################################################################################
+############################    DISPLAY FUNCTIONS    #########################################################
+##############################################################################################################
+def allshow_employee():
+    '''
+    Function to show employee
+    '''
+    print("ME cvalle\n")
+    try:
+        query = "SELECT * FROM EMPLOYEE" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+def allshow_resource():
+    '''
+    Function to show resource
+    '''
+    try:
+        query = "SELECT * FROM RESOURCE" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+        
+def allshow_industry():
+    '''
+    Function to show industry
+    '''
+    try:
+        query = "SELECT * FROM INDUSTRY" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+def allshow_location():
+    '''
+    Function to show location
+    '''
+    try:
+        query = "SELECT * FROM LOCATION" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+def allshow_investor():
+    '''
+    Function to show investor
+    '''
+    try:
+        query = "SELECT * FROM INVESTOR" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+def allshow_startup():
+    '''
+    '''
+    try:
+        query = "SELECT * FROM STARTUP" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+def allshow_project():
+    '''
+    Function to show project
+    '''
+    try:
+        query = "SELECT * FROM PROJECT" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+def allshow_director():
+    '''
+    Function to show director
+    '''
+    try:
+        query = "SELECT * FROM DIRECTOR" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+def allshow_director_education():
+    '''
+    Function to show directors education
+    '''
+    try:
+        query = "SELECT * FROM DIRECTOR_EDUCATION" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+
+def allshow_investor_education():
+    '''
+    Function to show directors education
+    '''
+    try:
+        query = "SELECT * FROM INVESTOR_EDUCATION" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+
+def allshow_invests():
+    '''
+    Function to show directors education
+    '''
+    try:
+        query = "SELECT * FROM INVESTS" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+
+def allshow_based_in():
+    '''
+    Function to show directors education
+    '''
+    try:
+        query = "SELECT * FROM BASED_IN" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+def allshow_startup_founders():
+    '''
+    Function to show directors education
+    '''
+    try:
+        query = "SELECT * FROM STARTUP_FOUNDERSs" 
+        cur.execute(query)
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+
+
+##############################################################################################################
+############################    INSERT FUNCTIONS    ##########################################################
+##############################################################################################################
 def insert_investor():
     '''
         Function to insert investors into the table
@@ -66,13 +273,12 @@ def insert_investor():
 
     try:
         cur.execute(query)
-        con.commit()
     except Exception as e:
+        con.commit()
         con.rollback()
         print("ERROR >>", e)
 
     return
-
 
 def insert_startup():
     '''
@@ -186,8 +392,10 @@ def insert_industry():
 
     return
 
-
-def update_empsal():
+##############################################################################################################
+############################    UPDATE FUNCTIONS    ##########################################################
+##############################################################################################################
+def update_employee_salary():
     '''
     Function to update the salary of an employee 
     '''
@@ -211,7 +419,7 @@ def update_empsal():
 
     return
 
-def update_networth():
+def update_employee_networth():
     '''
     Function to update the networth of an employee 
     '''
@@ -224,7 +432,6 @@ def update_networth():
         print("networth not integer")
         networth = input("Enter networth: ")
 
-
     try:
         query = "UPDATE STARTUP set Networth=%d where StartupID=%d" % (int(networth),int(emp_id));
         cur.execute(query)
@@ -232,11 +439,113 @@ def update_networth():
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
+    return
 
+##############################################################################################################
+############################    DELETE FUNCTIONS    ##########################################################
+##############################################################################################################
+
+def delete_investor():
+    '''
+    Function to delete the associated investor
+    '''
+    investor_id = input("Enter the investorID of the investor to delete: ")
+    while re.findall(r"[0-9]+", investor_id) == [] or re.findall(r"[0-9]+", investor_id)[0] != investor_id:
+        print("ID not integer")
+        investor_id = input("Enter Id: ")
+    try:
+        query = "DELETE FROM INVESTOR WHERE ID=%d" %(int(investor_id))
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+    return 
+
+def delete_employee():
+    '''
+    Function to delete the associated employee
+    '''
+    employee_id = input("Enter the employeeID of the employee to delete: ")
+    while re.findall(r"[0-9]+", employee_id) == [] or re.findall(r"[0-9]+", employee_id)[0] != employee_id:
+        print("ID not integer")
+        employee_id = input("Enter Id: ")
+    try:
+        query = "DELETE FROM EMPLOYEE WHERE ID=%d" %(int(employee_id))
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
+    return
+
+def delete_director():
+    '''
+    Function to delete the associated investor
+    '''
+    startup_id = input("Enter the startupID of the director to delete: ")
+    while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != investor_id:
+        print("ID not integer")
+        investor_id = input("Enter Id: ")
+    name = input("Enter name of director to delete: ")
+    try:
+        query = "DELETE FROM DIRECTOR WHERE ID=%d AND NAME=%s" %(int(investor_id),str(name))
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("ERROR >>",e)
     return
 
 
-update_networth()
-cur.execute('select * from STARTUP')
+list_of_functions = [[allshow_employee,allshow_resource,allshow_industry,allshow_location,allshow_investor,allshow_startup,allshow_project,allshow_director,allshow_director_education,allshow_investor_education,allshow_invests,allshow_based_in,allshow_startup_founders],[insert_investor,insert_startup,insert_employee,insert_industry],[update_employee_salary,update_employee_networth],[delete_investor,delete_employee,delete_director]]
+
+##############################################################################################################
+############################    MAIN FUNCTION       ##########################################################
+##############################################################################################################
+def execute_command(a):
+    ''' 
+    Function that redirect query to corresponding function 
+    ''' 
+    if(a==0):
+        print(ANSI_TEXT_YELLOW)
+        for i in range(len(show_list)):
+            print(i,show_list[i])
+        b = int(input("Enter an option to select: ")) 
+        gp = list_of_functions[a][b]()
+        
+    elif (a==1):
+        print(ANSI_TEXT_BLUE)
+        for i in range(len(insert_list)):
+            print(i,insert_list[i])
+        b = int(input("Enter an option to select: ")) 
+        gp = list_of_functions[a][b]()
+    
+    elif (a==2):
+        print(ANSI_TEXT_GREEN)
+        for i in range(len(update_list)):
+            print(i,update_list[i])
+        b = int(input("Enter an option to select: ")) 
+        gp = list_of_functions[a][b]()
+        
+    elif (a==3):
+        print(ANSI_TEXT_RED)
+        for i in range(len(delete_list)):
+            print(i,delete_list[i])
+        b = int(input("Enter an option to select: ")) 
+        gp = list_of_functions[a][b]()
+    print(ANSI_TEXT_RESET)
+    return 
+
+tmp = sp.call('clear',shell=True)
+while True:
+    print("Select an option")
+    for h in range(len(command_list)):
+        print(h,command_list[h])
+    g=int(input("Enter the key: "))
+    #allshow_employee()
+    execute_command(g)
+    #update_networth()
+    #cur.execute('select * from INVESTOR')
 
 print(cur.fetchall())
