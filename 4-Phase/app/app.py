@@ -139,6 +139,7 @@ def allshow_investor():
 
 def allshow_startup():
     '''
+    Function to show all the startups
     '''
     try:
         query = "SELECT * FROM STARTUP" 
@@ -419,14 +420,14 @@ def update_employee_salary():
 
     return
 
-def update_employee_networth():
+def update_startup_networth():
     '''
-    Function to update the networth of an employee 
+    Function to update the networth of an startup
     '''
-    emp_id = input("Enter Id of the startup whose networth is to updated: " )
-    while re.findall(r"[0-9]+", emp_id) == [] or re.findall(r"[0-9]+", emp_id)[0] != emp_id:
+    st_id = input("Enter Id of the startup whose networth is to updated: " )
+    while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", emp_id)[0] != emp_id:
         print("ID not integer")
-        emp_id = input("Enter Id: ")
+        st_id = input("Enter Id: ")
     networth = input("Enter new networth: ")
     while  re.findall(r"[0-9]+", networth) == [] or re.findall(r"[0-9]+", networth)[0] != networth:
         print("networth not integer")
@@ -498,7 +499,7 @@ def delete_director():
     return
 
 
-list_of_functions = [[allshow_employee,allshow_resource,allshow_industry,allshow_location,allshow_investor,allshow_startup,allshow_project,allshow_director,allshow_director_education,allshow_investor_education,allshow_invests,allshow_based_in,allshow_startup_founders],[insert_investor,insert_startup,insert_employee,insert_industry],[update_employee_salary,update_employee_networth],[delete_investor,delete_employee,delete_director]]
+list_of_functions = [[allshow_employee,allshow_resource,allshow_industry,allshow_location,allshow_investor,allshow_startup,allshow_project,allshow_director,allshow_director_education,allshow_investor_education,allshow_invests,allshow_based_in,allshow_startup_founders],[insert_investor,insert_startup,insert_employee,insert_industry],[update_employee_salary,update_startup_networth],[delete_investor,delete_employee,delete_director]]
 
 ##############################################################################################################
 ############################    MAIN FUNCTION       ##########################################################
