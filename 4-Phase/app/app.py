@@ -40,6 +40,10 @@ command_list.append("Show")
 command_list.append("Insert")
 command_list.append("Update")
 command_list.append("Delete")
+command_list.append("Generate Report")
+command_list.append("")
+command_list.append("")
+command_list.append("Quit")
 show_list = []
 show_list.append("Employee")
 show_list.append("Resource")
@@ -66,6 +70,9 @@ delete_list = []
 delete_list.append("Investor")
 delete_list.append("Employee")
 delete_list.append("Director")
+report_list=[]
+report_list.append("Startup per Location")
+report_list.append("Startup per Industry")
 
 
 ##############################################################################################################
@@ -494,7 +501,45 @@ def delete_director():
     return
 
 
-list_of_functions = [[allshow_employee,allshow_resource,allshow_industry,allshow_location,allshow_investor,allshow_startup,allshow_project,allshow_director,allshow_director_education,allshow_investor_education,allshow_invests,allshow_based_in,allshow_startup_founders],[insert_investor,insert_startup,insert_employee,insert_industry],[update_employee_salary,update_startup_networth],[delete_investor,delete_employee,delete_director]]
+###############################################################################
+############################    REPORT FUNCTIONS    ###########################
+###############################################################################
+
+def max_startup_per_location():
+    '''
+    Function to find the location with the maximum number of startups and the number of startups
+    '''
+    query = 'select c as "Number of Startups", LocationID  from (select count(*) as c,LocationID from BASED_IN group by LocationID) as x where x.c = (select max(c)  from (select count(*) as c,LocationID from BASED_IN group by LocationID ) as y) group by LocationID;'
+    try:
+        cur.execute(query)   
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+    return
+
+def max_startup_per_industry():
+    '''
+    Function to find the location with the maximum number of startups and the number of startups
+    '''
+    query = 'select c as "Number of Startups", x.IndustryID, IndustryName from (select count(StartupID) as c, IndustryID from INVESTS group by IndustryID) as x, INDUSTRY i where x.c = (select max(c) from (select count(StartupID) as c, IndustryID i from INVESTS group by IndustryID) as x) and i.IndustryID = x.IndustryID group by IndustryID ;'
+    try:
+        cur.execute(query)   
+        print(cur.fetchall())
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
+    return
+
+
+
+
+
+list_of_functions = [[allshow_employee,allshow_resource,allshow_industry,allshow_location,allshow_investor,allshow_startup,allshow_project,allshow_director,allshow_director_education,allshow_investor_education,allshow_invests,allshow_based_in,allshow_startup_founders],[insert_investor,insert_startup,insert_employee,insert_industry],[update_employee_salary,update_startup_networth],[delete_investor,delete_employee,delete_director]
+                    ,[max_startup_per_location,max_startup_per_industry]
+                    ]
 
 ##############################################################################################################
 ############################    MAIN FUNCTION       ##########################################################
@@ -530,6 +575,13 @@ def execute_command(a):
             print(i,delete_list[i])
         b = int(input("Enter an option to select: ")) 
         gp = list_of_functions[a][b]()
+    elif (a==4):
+        print(ANSI_TEXT_CYAN)
+        for i in range(len(report_list)):
+            print(i,report_list[i])
+        b = int(input("Enter an option to select: ")) 
+        gp = list_of_functions[a][b]()
+        
     print(ANSI_TEXT_RESET)
     return 
 
