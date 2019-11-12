@@ -88,6 +88,7 @@ CREATE TABLE `DIRECTOR_EDUCATION` (
   `Year` int(11) NOT NULL,
   PRIMARY KEY (`Name`,`StartupID`,`Degree`,`Branch`,`Year`),
  /*added */ FOREIGN KEY (`StartupID`) REFERENCES STARTUP(`StartupID`) ON UPDATE CASCADE ON DELETE CASCADE
+ /*added */ FOREIGN KEY (`Name`) REFERENCES DIRECTOR(`Name`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

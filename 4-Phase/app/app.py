@@ -98,9 +98,17 @@ show_list.append("Based_in")
 show_list.append("Startup Founders")
 insert_list = []
 insert_list.append("Investor")
+insert_list.append("Investor_Education")
 insert_list.append("Startup")
+insert_list.append("Director")
+insert_list.append("Director_Education")
+insert_list.append("Based_in")
 insert_list.append("Employee")
 insert_list.append("Industry")
+insert_list.append("Resource")
+insert_list.append("Location")
+insert_list.append("Project")
+insert_list.append("Invests")
 update_list = []
 update_list.append("Salary of employee")
 update_list.append("Networth of employee")
@@ -111,6 +119,7 @@ delete_list.append("Director")
 report_list = []
 report_list.append("Startup per Location")
 report_list.append("Startup per Industry")
+report_list.append("Age of investor")
 
 
 # Render Tables
@@ -361,7 +370,6 @@ def insert_investor():
         print("ERROR >>", e)
 
     print(ANSI_TEXT_RESET)
-
     return
 
 
@@ -440,38 +448,40 @@ def insert_startup():
         print("Networth not integer")
         networth = input("Enter Networth: ")
 
-    lid = input("Enter Location Id (Pincode): ")
-    while re.findall(r"[0-9]+", lid) == [] or re.findall(r"[0-9]+", lid)[0] != lid:
-        print("LID not integer")
-        lid = input("Enter Location Id: ")
+    rid = input("Enter Resource Id (Pincode): ")
+    while re.findall(r"[0-9]+", rid) == [] or re.findall(r"[0-9]+", rid)[0] != rid:
+        print("RID not integer")
+        rid = input("Enter Resource Id: ")
 
-    print(st_id, st_name, noE, networth, lid)
+    print(st_id, st_name, noE, networth, rid)
 
-    query = "insert into STARTUP(StartupId,StartupName,NoofEmployees,Networth,LocationId) values(%d,'%s',%d, %d, %d)" % (
-        int(st_id), st_name, int(noE), int(networth), int(lid))
+    query = "insert into STARTUP(StartupId,StartupName,NoofEmployees,Networth,ResourceId) values(%d,'%s',%d, %d, %d)" % (
+        int(st_id), st_name, int(noE), int(networth), int(rid))
 
     try:
         cur.execute(query)
+        insert_director(startup_id=st_id)
+        insert_based_in(startup_id=st_id)
         con.commit()
     except Exception as e:
         con.rollback()
         print("ERROR >>", e)
     print(ANSI_TEXT_RESET)
-
     return
 
 
-def insert_director():
+def insert_director(startup_id=None):
     '''
     Function to insert directors into the table
     '''
     tr = 0
     while tr == 0:
         print("Enter Director's Details")
-        startup_id = input("Enter Id: ")
-        while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != startup_id:
-            print("ID not integer")
+        if startup_id is 1:
             startup_id = input("Enter Id: ")
+            while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != startup_id:
+                print("ID not integer")
+                startup_id = input("Enter Id: ")
 
         name = str(input("Enter Name: "))
 
@@ -486,7 +496,7 @@ def insert_director():
             experience = input("Enter Id: ")
 
         query = "insert into DIRECTOR(Name, StartupID, Sex, Experience) values ('%s', %d, '%s', '%d')" % (
-            name, startup_id, sex, experience)
+            name, int(startup_id), sex, int(experience))
 
         try:
             cur.execute(query)
@@ -547,6 +557,40 @@ def director_education(startup_id=None, name=None):
                 tr = 1
     return
 
+def insert_based_in(startup_id=None):
+    tr = 0
+    count = 0
+    while tr == 0:
+        if startup_id == None:
+            startup_id = input("Enter Location Id: ")
+            while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != startup_id:
+                print("ID not integer")
+                startup_id = input("Enter Location Id: ")
+
+        location_id = input("Enter Id: ")
+        while re.findall(r"[0-9]+", location_id) == [] or re.findall(r"[0-9]+", location_id)[0] != location_id:
+            print("ID not integer")
+            location_id = input("Enter Id: ")
+
+        query = "insert into BASED_IN(StartupID, LocationID) values(%d, %d)" % (
+             int(startup_id),int(location_id))
+        try:
+            cur.execute(query)
+            con.commit()
+            count += 1
+        except Exception as e:
+            con.rollback()
+            print("ERROR >>", e)
+
+        k = input("are there more Locations (Y/N)? ")
+        if k[0] == 'n' or k[0] == 'N':
+            if count == 0:
+                raise Exception(
+                    "No location entered for the Startup")
+            else:
+                tr = 1
+    return
+    
 
 def insert_employee():
     '''
@@ -952,7 +996,7 @@ def age_of_investor():
 
 
 list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, allshow_location, allshow_investor, allshow_startup, allshow_project, allshow_director, allshow_director_education, allshow_investor_education, allshow_invests, allshow_based_in,
-                      allshow_startup_founders], [insert_investor, insert_startup, insert_employee, insert_industry], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry]]
+                      allshow_startup_founders], [insert_investor, investor_education,insert_startup, insert_director,director_education,insert_based_in,insert_employee, insert_industry,insert_resource,insert_location,insert_project,insert_invests], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry,age_of_investor]]
 
 
 ##################################################################################
