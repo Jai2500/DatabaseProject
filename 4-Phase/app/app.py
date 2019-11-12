@@ -413,7 +413,7 @@ def update_employee_salary():
 
 
     try:
-        query = "update EMPLOYEE set EmployeeSalary=%d where EmployeeId=%d" % (int(salary),int(emp_id));
+        query = "update EMPLOYEE set EmployeeSalary=%d where EmployeeId=%d" % (int(salary),int(emp_id))
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -427,7 +427,7 @@ def update_startup_networth():
     Function to update the networth of an startup
     '''
     st_id = input("Enter Id of the startup whose networth is to updated: " )
-    while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", emp_id)[0] != emp_id:
+    while re.findall(r"[0-9]+", st_id) == [] or re.findall(r"[0-9]+", st_id)[0] != st_id:
         print("ID not integer")
         st_id = input("Enter Id: ")
     networth = input("Enter new networth: ")
@@ -436,7 +436,7 @@ def update_startup_networth():
         networth = input("Enter networth: ")
 
     try:
-        query = "UPDATE STARTUP set Networth=%d where StartupID=%d" % (int(networth),int(emp_id));
+        query = "UPDATE STARTUP set Networth=%d where StartupID=%d" % (int(networth),int(st_id))
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -487,12 +487,12 @@ def delete_director():
     Function to delete the associated investor
     '''
     startup_id = input("Enter the startupID of the director to delete: ")
-    while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != investor_id:
+    while re.findall(r"[0-9]+", startup_id) == [] or re.findall(r"[0-9]+", startup_id)[0] != startup_id:
         print("ID not integer")
-        investor_id = input("Enter Id: ")
+        startup_id = input("Enter Id: ")
     name = input("Enter name of director to delete: ")
     try:
-        query = "DELETE FROM DIRECTOR WHERE ID=%d AND NAME=%s" %(int(investor_id),str(name))
+        query = "DELETE FROM DIRECTOR WHERE ID=%d AND NAME=%s" %(int(startup_id),str(name))
         cur.execute(query)
         con.commit()
     except Exception as e:
@@ -538,8 +538,7 @@ def max_startup_per_industry():
 
 
 list_of_functions = [[allshow_employee,allshow_resource,allshow_industry,allshow_location,allshow_investor,allshow_startup,allshow_project,allshow_director,allshow_director_education,allshow_investor_education,allshow_invests,allshow_based_in,allshow_startup_founders],[insert_investor,insert_startup,insert_employee,insert_industry],[update_employee_salary,update_startup_networth],[delete_investor,delete_employee,delete_director]
-                    ,[max_startup_per_location,max_startup_per_industry]
-                    ]
+                    ,[max_startup_per_location,max_startup_per_industry]]
 
 
 ##############################################################################################################
