@@ -655,6 +655,29 @@ def insert_resource():
 
     return
 
+def insert_location():
+    '''
+    Function to insert data into location table
+    '''
+
+    pincode = input("Enter Pincode: ")
+    while re.findall(r"[0-9]+", pincode) == [] or re.findall(r"[0-9]+", pincode)[0] != pincode:
+        print("Pincode not integer")
+        pincode = input("Enter Pincode: ")
+
+    city = str(input("Enter the City Name: "))
+
+    country = str(input("Enter the Country Name: "))
+
+    query = "insert into LOCATION(Pincode, City, Country) values(%d, '%s', '%s')" % (int(pincode), city, country)
+
+    try:
+        cur.execute(query)
+        con.commit()
+    except Exception as e:
+        con.rollback()
+        print("Error >> ", e)
+
 
 ###############################################################################
 ############################    UPDATE FUNCTIONS    ###########################
