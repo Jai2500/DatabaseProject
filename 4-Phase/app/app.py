@@ -126,6 +126,7 @@ report_list = []
 report_list.append("Startup per Location")
 report_list.append("Startup per Industry")
 report_list.append("Age of investor")
+report_list.append("Generate invests report")
 report_list.append("Go Back to the main menu")
 
 # Render Tables
@@ -1062,10 +1063,55 @@ def age_of_investor():
         print("Error >> ", e)
 
 
+def generate_invests():
+    '''
+    Function to generate report of INVESTS relationship
+    '''
+    query = 'select * from INVESTS';
+    try:
+        cur.execute(query)
+        data = cur.fetchall()
+        data_dict = {}
+        for i in range(len(data)):
+            for j in data[i]:
+                if j not in data_dict.keys():
+                    data_dict[j] = [data[i][j]]
+                else:
+                    data_dict[j].append(data[i][j])
+        print(data_dict)
+        for i in range(len(data_dict['IndustryID'])):
+                query1 = 'select concat(FirstName,\' \',LastName) from INVESTOR where InvestorID=%d' %(int(data_dict['InvestorID'][i]))
+                cur.execute(query1)
+                data1 = cur.fetchall()
+                print("InvestorID:",int(data_dict['InvestorID'][i]),",Name:",end="")
+                for key,value in data1[0].items():
+                    print(value,end="")
+                print(" invested in startup with startupID:",int(data_dict['StartupID'][i]),",Name:",end="")
+                query2 = 'select StartupName from STARTUP where StartupID=%d' %(int(data_dict['StartupID'][i]))
+                cur.execute(query2)
+                data2 = cur.fetchall()
+                for key,value in data2[0].items():
+                    print(value,end="")
+                print(" with IndustryID=%d" %(int(data_dict['IndustryID'][i])),",Name:",end="")
+                query3 = 'select IndustryName from INDUSTRY where IndustryID=%d'  %(int(data_dict['IndustryID'][i]))
+                cur.execute(query3)
+                data3 = cur.fetchall()
+                for key,value in data3[0].items():
+                    print(value,end="")
+                print(" having ResourceID=%d" %(int(data_dict['ResourceID'][i])),",Type:",end="")
+                query4 = 'select ResourceType from RESOURCE where ResourceID=%d'  %(int(data_dict['ResourceID'][i]))
+                cur.execute(query4)
+                data4 = cur.fetchall()
+                for key,value in data4[0].items():
+                    print(value,end="")
+                print(" starting from date %s." %(str(data_dict['StartDate'][i])))
 
+    except Exception as e:
+        con.rollback()
+        print("ERROR>>",e)
 
 list_of_functions = [[allshow_employee, allshow_resource, allshow_industry, allshow_location, allshow_investor, allshow_startup, allshow_project, allshow_director, allshow_director_education, allshow_investor_education, allshow_invests, allshow_based_in,
-                      allshow_startup_founders], [insert_investor, investor_education,insert_startup, insert_director,director_education,insert_based_in,insert_employee, insert_industry,insert_resource,insert_location,insert_project,insert_invests,insert_founders], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry,age_of_investor]]
+                      allshow_startup_founders], [insert_investor, investor_education,insert_startup, insert_director,director_education,insert_based_in,insert_employee, insert_industry,insert_resource,insert_location,insert_project,insert_invests,insert_founders], [update_employee_salary, update_startup_networth], [delete_investor, delete_employee, delete_director], [max_startup_per_location, max_startup_per_industry,age_of_investor,generate_invests]]
 
 
 ##################################################################################
